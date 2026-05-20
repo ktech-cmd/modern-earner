@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Deal Rate Calculator — What to Charge for Sponsored Posts | Earner Tools</title>
+  <meta name="description" content="Calculate exactly what to charge brands for sponsored posts on Instagram, TikTok, YouTube and more. Factors in followers, engagement rate, niche, and audience location." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+
+    .rpm-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    #platform-note {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 6px;
+      padding: 8px 12px;
+      background: var(--accent-dim);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    }
+
+    /* ── RATE RANGE ── */
+    .rate-range {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .rate-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem;
+      text-align: center;
+    }
+
+    .rate-box.mid {
+      background: var(--accent-dim);
+      border-color: var(--accent-mid);
+    }
+
+    .rate-box-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+    }
+
+    .rate-box-usd {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .rate-box.mid .rate-box-usd { color: var(--accent); }
+
+    .rate-box-kes {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── PACKAGES ── */
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .pkg-item {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .pkg-label {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .pkg-label small {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .pkg-price {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .pkg-usd {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .pkg-kes {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ── TIPS LIST ── */
+    #negotiation-tips {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #negotiation-tips li {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    #negotiation-tips li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .info-item {
+      background: var(--bg-input);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1rem;
+    }
+
+    .info-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-val {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 640px) {
+      .rate-range { grid-template-columns: 1fr; }
+      .pkg-grid   { grid-template-columns: 1fr; }
+      .info-grid  { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">Earner<span>Tools</span></a>
+  <ul class="nav-links">
+    <li><a href="freelance-calc.html">Freelance Calc</a></li>
+    <li><a href="youtube-calc.html">YouTube/AdSense</a></li>
+    <li><a href="rate-calc.html">Rate Calc</a></li>
+    <li><a href="brand-deal-calc.html" class="active">Brand Deals</a></li>
+    <li><a href="crypto-calc.html">Crypto</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span class="icon">☀️</span>
+    <span class="label">Light</span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-tag">🤝 Instagram · TikTok · YouTube · LinkedIn</div>
+  <h1>What should you charge<br>for a <em>brand deal?</em></h1>
+  <p>Stop guessing. Enter your stats and get a data-backed rate to charge brands for sponsored content — across every major platform.</p>
+</section>
+
+<!-- ── MAIN ── -->
+<main class="main-container">
+
+  <!-- INPUTS -->
+  <div class="card">
+    <div class="card-title">Your Creator Profile</div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label for="followers">Follower / Subscriber Count</label>
+        <input type="number" id="followers" placeholder="e.g. 25000" min="1000" />
+      </div>
+
+      <div class="form-group">
+        <label for="engagement-rate">
+          Engagement Rate (%)
+          <span style="color:var(--text-muted); font-weight:400"> — likes+comments ÷ followers × 100</span>
+        </label>
+        <input type="number" id="engagement-rate" placeholder="e.g. 4.5" min="0.1" step="0.1" />
+      </div>
+
+      <div class="form-group full">
+        <label for="platform">Platform & Content Type</label>
+        <div class="select-wrapper">
+          <select id="platform">
+            <option value="" disabled selected>— Select platform —</option>
+          </select>
+        </div>
+        <span id="platform-note"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="niche">Your Niche</label>
+        <div class="select-wrapper">
+          <select id="niche"></select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="audience-location">Primary Audience Location</label>
+        <div class="select-wrapper">
+          <select id="audience-location"></select>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label for="usd-rate">USD → KES Rate</label>
+        <input type="number" id="usd-rate" placeholder="129.5 (default)" min="1" step="0.1" />
+      </div>
+
+    </div>
+
+    <p id="error-msg" style="display:none;" class="error-msg"></p>
+
+    <button class="btn-calculate" onclick="calculate()">
+      Calculate My Brand Deal Rate →
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- Rate range -->
+    <div class="card">
+      <div class="updated-badge">✓ Industry benchmarks 2024/2025</div>
+      <div class="card-title">Your Sponsored Post Rate</div>
+
+      <div class="rate-range">
+        <div class="rate-box">
+          <div class="rate-box-label">Minimum</div>
+          <div class="rate-box-usd" id="stat-rate-low">—</div>
+          <div class="rate-box-kes" id="stat-kes-low">—</div>
+        </div>
+        <div class="rate-box mid">
+          <div class="rate-box-label">Recommended Rate</div>
+          <div class="rate-box-usd" id="stat-rate-mid">—</div>
+          <div class="rate-box-kes" id="stat-kes-mid">—</div>
+        </div>
+        <div class="rate-box">
+          <div class="rate-box-label">Premium Rate</div>
+          <div class="rate-box-usd" id="stat-rate-high">—</div>
+          <div class="rate-box-kes" id="stat-kes-high">—</div>
+        </div>
+      </div>
+
+      <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">
+        Start at the recommended rate. Move to premium once you have 3+ successful brand partnerships.
+      </p>
+    </div>
+
+    <!-- Package rates -->
+    <div class="card">
+      <div class="card-title">Package Rates to Offer Brands</div>
+      <div class="pkg-grid">
+
+        <div class="pkg-item">
+          <div class="pkg-label">
+            Single Post
+            <small>One-off sponsored content</small>
+          </div>
+          <div class="pkg-price">
+            <div class="pkg-usd" id="pkg-single">—</div>
+            <div class="pkg-kes" id="pkg-single-kes">—</div>
+          </div>
+        </div>
+
+        <div class="pkg-item">
+          <div class="pkg-label">
+            3-Post Bundle
+            <small>Slight discount, more commitment</small>
+          </div>
+          <div class="pkg-price">
+            <div class="pkg-usd" id="pkg-bundle">—</div>
+            <div class="pkg-kes" id="pkg-bundle-kes">—</div>
+          </div>
+        </div>
+
+        <div class="pkg-item">
+          <div class="pkg-label">
+            Monthly Retainer
+            <small>Ongoing partnership (4 posts/mo)</small>
+          </div>
+          <div class="pkg-price">
+            <div class="pkg-usd" id="pkg-monthly">—</div>
+            <div class="pkg-kes" id="pkg-monthly-kes">—</div>
+          </div>
+        </div>
+
+        <div class="pkg-item">
+          <div class="pkg-label">
+            Niche Exclusivity
+            <small>No competitor brands for 30 days</small>
+          </div>
+          <div class="pkg-price">
+            <div class="pkg-usd" id="pkg-exclusive">—</div>
+            <div class="pkg-kes" id="pkg-exclusive-kes">—</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Your profile breakdown -->
+    <div class="card">
+      <div class="card-title">Rate Breakdown</div>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Platform</div>
+          <div class="info-val" id="bd-platform">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Niche</div>
+          <div class="info-val" id="bd-niche">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Followers</div>
+          <div class="info-val" id="bd-followers">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Engagement Rate</div>
+          <div class="info-val" id="bd-engagement">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Audience Location</div>
+          <div class="info-val" id="bd-location">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Location Multiplier</div>
+          <div class="info-val" id="bd-loc-mult">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Niche Premium</div>
+          <div class="info-val" id="bd-niche-mult">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Negotiation tips -->
+    <div class="card">
+      <div class="card-title">Negotiation Tips — For You Specifically</div>
+      <ul id="negotiation-tips"></ul>
+    </div>
+
+    <div class="disclaimer">
+      <strong>⚠ These are benchmarks, not guarantees.</strong> Brand deal rates vary widely based on your portfolio, relationship with the brand, content quality, and negotiation. Use these figures as a starting point — experienced creators often charge 2–5× these rates. Data based on industry reports from Influencer Marketing Hub, Creator IQ, and Later (2024/2025).
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 EarnerTools · <a href="privacy-policy.html">Privacy Policy</a> · <a href="about.html">About</a></p>
+</footer>
+
+<script src="js/brand-deal.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>

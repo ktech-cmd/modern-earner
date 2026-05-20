@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelancer Rate Calculator Kenya — What Should You Charge? | Earner Tools</title>
+  <meta name="description" content="Calculate exactly what hourly, daily, and monthly rate to charge as a Kenyan freelancer to hit your income goal — after KRA taxes and Upwork/Fiverr platform fees." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+
+    /* ── HERO RATE ── */
+    .rate-hero {
+      text-align: center;
+      padding: 2rem 1rem 1.75rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.25rem;
+    }
+
+    .rate-hero-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .rate-hero-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      padding-bottom: 0.1em;
+    }
+
+    /* Force descenders to never clip on this page */
+    .page-hero h1 {
+      line-height: 1.4;
+      overflow: visible;
+      padding-bottom: 0.2em;
+    }
+
+    .rate-hero-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* ── RATE CARDS ROW ── */
+    .rate-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .rate-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem;
+      text-align: center;
+    }
+
+    .rate-card-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+    }
+
+    .rate-card-usd {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .rate-card-kes {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── MARKET NOTE ── */
+    #market-note {
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1.1rem;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      border: 1px solid;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── HOURS GRID ── */
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .hours-item {
+      background: var(--bg-input);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .hours-item-label { color: var(--text-muted); }
+    .hours-item-val   { font-weight: 600; color: var(--text-primary); }
+
+    /* ── CHECKBOX ── */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 11px 14px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.15s;
+      user-select: none;
+    }
+
+    .checkbox-group:hover { border-color: var(--border-hover); }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .checkbox-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 640px) {
+      .rate-cards  { grid-template-columns: 1fr; }
+      .hours-grid  { grid-template-columns: 1fr; }
+    }
+  </style>
+  
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">Earner<span>Tools</span></a>
+  <ul class="nav-links">
+    <li><a href="freelance-calc.html">Freelance Calc</a></li>
+    <li><a href="youtube-calc.html">YouTube/AdSense</a></li>
+    <li><a href="rate-calc.html" class="active">Rate Calc</a></li>
+    <li><a href="brand-deal-calc.html">Brand Deals</a></li>
+    <li><a href="crypto-calc.html">Crypto → KES</a></li>
+    <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon">☀️</span>
+      <span class="label">Light</span>
+    </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-tag">💡 KRA Tax + Platform Fees Included</div>
+  <h1>What should you<br><em>charge per hour?</em></h1>
+  <p>Enter your income goal and we'll work backwards to the exact rate you need to charge — after tax and platform fees.</p>
+</section>
+
+<!-- ── MAIN ── -->
+<main class="main-container">
+
+  <!-- INPUTS -->
+  <div class="card">
+    <div class="card-title">Your Goals & Working Hours</div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label for="target-income">Target Take-Home (KES/month)</label>
+        <input type="number" id="target-income" placeholder="e.g. 150000" min="1" />
+      </div>
+
+      <div class="form-group">
+        <label for="expenses">Monthly Business Expenses (KES)</label>
+        <input type="number" id="expenses" placeholder="e.g. 10000 (optional)" min="0" />
+      </div>
+
+      <div class="form-group">
+        <label for="hours-week">Hours You Work Per Week</label>
+        <input type="number" id="hours-week" placeholder="e.g. 40" min="1" max="80" />
+      </div>
+
+      <div class="form-group">
+        <label for="weeks-off">Weeks Off Per Year (holidays)</label>
+        <input type="number" id="weeks-off" placeholder="4 (default)" min="0" max="20" />
+      </div>
+
+      <div class="form-group">
+        <label for="usd-rate">USD → KES Rate</label>
+        <input type="number" id="usd-rate" placeholder="129.5 (default)" min="1" step="0.1" />
+      </div>
+
+      <div class="form-group">
+        <label for="platform">Platform</label>
+        <div class="select-wrapper">
+          <select id="platform"></select>
+        </div>
+      </div>
+
+      <!-- Tax toggle — full width -->
+      <div class="form-group full">
+        <label class="checkbox-group">
+          <input type="checkbox" id="include-tax" checked />
+          <span class="checkbox-label">
+            Include KRA income tax in calculation
+            <span style="color:var(--text-muted); display:block; font-size:0.78rem; margin-top:2px;">
+              Recommended — calculates the gross you need to charge to hit your net target
+            </span>
+          </span>
+        </label>
+      </div>
+
+    </div>
+
+    <p id="error-msg" style="display:none;" class="error-msg"></p>
+
+    <button class="btn-calculate" onclick="calculate()">
+      Calculate My Rate →
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- Hero hourly rate -->
+    <div class="card">
+      <div class="updated-badge">✓ KRA 2024/2025 · Platform fees included</div>
+
+      <div class="rate-hero">
+        <div class="rate-hero-label">Your Minimum Hourly Rate</div>
+        <div class="rate-hero-amount" id="stat-hourly-usd">—</div>
+        <div class="rate-hero-sub" id="stat-hourly-kes">—</div>
+      </div>
+
+      <!-- Daily / Weekly / Monthly -->
+      <div class="rate-cards">
+        <div class="rate-card">
+          <div class="rate-card-label">Daily Rate (8hrs)</div>
+          <div class="rate-card-usd" id="stat-daily">—</div>
+          <div class="rate-card-kes" id="stat-daily-kes">—</div>
+        </div>
+        <div class="rate-card">
+          <div class="rate-card-label">Weekly Rate</div>
+          <div class="rate-card-usd" id="stat-weekly">—</div>
+          <div class="rate-card-kes" id="stat-weekly-kes">—</div>
+        </div>
+        <div class="rate-card">
+          <div class="rate-card-label">Monthly Gross to Charge</div>
+          <div class="rate-card-usd" id="stat-monthly">—</div>
+          <div class="rate-card-kes" id="stat-monthly-kes">—</div>
+        </div>
+      </div>
+
+      <!-- Market position note -->
+      <div id="market-note"></div>
+    </div>
+
+    <!-- How we got there -->
+    <div class="card">
+      <div class="card-title">How We Got There</div>
+      <table class="breakdown-table">
+        <tr>
+          <td>Target take-home</td>
+          <td id="bd-target">—</td>
+        </tr>
+        <tr>
+          <td>+ Business expenses</td>
+          <td id="bd-expenses">—</td>
+        </tr>
+        <tr>
+          <td>+ KRA income tax</td>
+          <td id="bd-tax">—</td>
+        </tr>
+        <tr>
+          <td>= Gross income needed (KES)</td>
+          <td id="bd-gross-kes">—</td>
+        </tr>
+        <tr>
+          <td>= Gross income needed (USD)</td>
+          <td id="bd-gross-usd">—</td>
+        </tr>
+        <tr>
+          <td>÷ Platform adjustment</td>
+          <td id="bd-platform">—</td>
+        </tr>
+        <tr>
+          <td>= Total to invoice clients (USD)</td>
+          <td id="bd-charge">—</td>
+        </tr>
+        <tr>
+          <td>÷ Billable hours per month</td>
+          <td id="bd-billable">—</td>
+        </tr>
+        <tr class="total-row">
+          <td>= Minimum hourly rate</td>
+          <td id="bd-hourly">—</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Hours breakdown -->
+    <div class="card">
+      <div class="card-title">Your Hours Breakdown</div>
+      <div class="hours-grid">
+        <div class="hours-item">
+          <span class="hours-item-label">Hours per week</span>
+          <span class="hours-item-val" id="hrs-week">—</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-item-label">Planned time off</span>
+          <span class="hours-item-val" id="hrs-weeks-off">—</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-item-label">Total hours/month</span>
+          <span class="hours-item-val" id="hrs-month">—</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-item-label">Billable hours/month</span>
+          <span class="hours-item-val" id="hrs-billable">—</span>
+        </div>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1rem; line-height:1.6;">
+        ℹ We assume <strong style="color:var(--text-secondary)">70% billable efficiency</strong> — the remaining 30% covers client communication, revisions, admin, and business development. This is a realistic industry standard for freelancers.
+      </p>
+    </div>
+
+    <div class="disclaimer">
+      <strong>⚠ This is a minimum viable rate.</strong> Always add a buffer of 15–20% above this figure to account for slow months, scope creep, and unpaid invoices. KRA tax calculated using Finance Act 2024/2025 brackets. Exchange rate used is approximate — use your bank's rate for exact figures.
+    </div>
+
+  </div>
+  <!-- /results -->
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 EarnerTools · <a href="privacy-policy.html">Privacy Policy</a> · <a href="about.html">About</a></p>
+</footer>
+<script src="js/theme.js"></script>
+<script src="js/rate-calc.js"></script>
+</body>
+</html>

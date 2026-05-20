@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube & AdSense Revenue Estimator — By Niche & Audience | Earner Tools</title>
+  <meta name="description" content="Estimate your YouTube or AdSense monthly earnings by niche, monthly views, and audience country. See results in USD and KES. Free tool, updated CPM/RPM data 2024/2025." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .rpm-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .range-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .range-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .range-card.mid {
+      background: var(--accent-dim);
+      border-color: var(--accent-mid);
+    }
+
+    .range-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .range-usd {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .range-card.mid .range-usd { color: var(--accent); }
+
+    .range-kes {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .annual-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .annual-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .annual-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .niche-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .milestone-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .milestone-table th {
+      text-align: left;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .milestone-table th:not(:first-child) { text-align: right; }
+
+    .milestone-table td {
+      padding: 11px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .milestone-table td:not(:first-child) {
+      text-align: right;
+      font-weight: 500;
+    }
+
+    .milestone-table tr:last-child td { border-bottom: none; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .info-item {
+      background: var(--bg-input);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+
+    .info-item-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 5px;
+    }
+
+    .info-item-val {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .range-cards { grid-template-columns: 1fr; }
+      .annual-row  { grid-template-columns: 1fr; }
+      .info-grid   { grid-template-columns: 1fr; }
+    }
+  </style>
+  
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">Earner<span>Tools</span></a>
+  <ul class="nav-links">
+    <li><a href="freelance-calc.html">Freelance Calc</a></li>
+    <li><a href="youtube-calc.html" class="active">YouTube/AdSense</a></li>
+    <li><a href="rate-calc.html">Rate Calc</a></li>
+    <li><a href="brand-deal-calc.html">Brand Deals</a></li>
+    <li><a href="crypto-calc.html">Crypto → KES</a></li>
+    <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon">☀️</span>
+      <span class="label">Light</span>
+    </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-tag">▶ YouTube & AdSense · 2024/2025 RPM Data</div>
+  <h1>How much will your<br><em>channel earn?</em></h1>
+  <p>Estimate monthly ad revenue based on your niche, views, and where your audience actually lives.</p>
+</section>
+
+<!-- ── MAIN ── -->
+<main class="main-container">
+
+  <!-- INPUTS -->
+  <div class="card">
+    <div class="card-title">Channel Details</div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label for="monthly-views">Monthly Views</label>
+        <input type="number" id="monthly-views" placeholder="e.g. 50000" min="0" />
+      </div>
+
+      <div class="form-group">
+        <label for="ctr">
+          Monetised Views (%)
+          <span style="color:var(--text-muted); font-weight:400"> — default 50%</span>
+        </label>
+        <input type="number" id="ctr" placeholder="50" min="1" max="100" />
+        <span class="rpm-note">Not all views show ads. 40–60% is typical.</span>
+      </div>
+
+      <div class="form-group full">
+        <label for="niche">Your Niche</label>
+        <div class="select-wrapper">
+          <select id="niche">
+            <option value="" disabled selected>— Select your niche —</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label for="audience-country">Primary Audience Country</label>
+        <div class="select-wrapper">
+          <select id="audience-country"></select>
+        </div>
+        <span class="rpm-note">Audience location heavily affects CPM. A US viewer is worth ~6× a Kenyan viewer to advertisers.</span>
+      </div>
+
+    </div>
+
+    <p id="error-msg" style="display:none; color:var(--danger); font-size:0.88rem; margin-top:1rem;"></p>
+
+    <button class="btn-calculate" onclick="calculate()">
+      Estimate My Revenue →
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- Range Cards -->
+    <div class="card">
+      <div class="updated-badge">✓ RPM data updated — 2024/2025</div>
+      <div class="card-title">Monthly Estimate</div>
+
+      <div class="range-cards">
+        <div class="range-card">
+          <div class="range-label">Conservative</div>
+          <div class="range-usd" id="stat-low">—</div>
+          <div class="range-kes" id="stat-low-kes">—</div>
+        </div>
+        <div class="range-card mid">
+          <div class="range-label">Realistic</div>
+          <div class="range-usd" id="stat-mid">—</div>
+          <div class="range-kes" id="stat-mid-kes">—</div>
+        </div>
+        <div class="range-card">
+          <div class="range-label">Optimistic</div>
+          <div class="range-usd" id="stat-high">—</div>
+          <div class="range-kes" id="stat-high-kes">—</div>
+        </div>
+      </div>
+
+      <!-- Annual row -->
+      <div class="annual-row">
+        <div>
+          <div class="annual-val" id="annual-low">—</div>
+          <div class="annual-label">Annual (conservative)</div>
+        </div>
+        <div>
+          <div class="annual-val" id="annual-mid">—</div>
+          <div class="annual-label">Annual (realistic)</div>
+        </div>
+        <div>
+          <div class="annual-val" id="annual-high">—</div>
+          <div class="annual-label">Annual (optimistic)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details Card -->
+    <div class="card">
+      <div class="card-title">Calculation Details</div>
+
+      <div class="info-grid" style="margin-bottom:1.5rem">
+        <div class="info-item">
+          <div class="info-item-label">Niche</div>
+          <div class="info-item-val" id="bd-niche">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Audience Location</div>
+          <div class="info-item-val" id="bd-country">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Total Monthly Views</div>
+          <div class="info-item-val" id="bd-views">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Monetised Views</div>
+          <div class="info-item-val" id="bd-monetised">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Effective RPM Range</div>
+          <div class="info-item-val"><span id="bd-rpm-low">—</span> – <span id="bd-rpm-high">—</span></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Location Multiplier</div>
+          <div class="info-item-val" id="bd-multiplier">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Milestones Card -->
+    <div class="card">
+      <div class="card-title">Revenue Milestones — Your Niche & Audience</div>
+      <table class="milestone-table">
+        <thead>
+          <tr>
+            <th>Views / Month</th>
+            <th>USD</th>
+            <th>KES</th>
+          </tr>
+        </thead>
+        <tbody id="milestone-body">
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RPM Reference -->
+    <div class="card">
+      <div class="card-title">Niche RPM Reference (US Audience)</div>
+      <table class="breakdown-table">
+        <tr><td style="color:var(--text-secondary)">Finance & Investing</td><td style="color:var(--accent); text-align:right">$8 – $22</td></tr>
+        <tr><td style="color:var(--text-secondary)">SaaS & Marketing</td><td style="color:var(--accent); text-align:right">$7 – $20</td></tr>
+        <tr><td style="color:var(--text-secondary)">Business & Entrepreneurship</td><td style="color:var(--accent); text-align:right">$6 – $16</td></tr>
+        <tr><td style="color:var(--text-secondary)">Crypto & Web3</td><td style="color:var(--accent); text-align:right">$5 – $15</td></tr>
+        <tr><td style="color:var(--text-secondary)">Tech & Software</td><td style="color:var(--accent); text-align:right">$4 – $12</td></tr>
+        <tr><td style="color:var(--text-secondary)">Education & How-To</td><td style="color:var(--accent); text-align:right">$3 – $9</td></tr>
+        <tr><td style="color:var(--text-secondary)">Gaming / Entertainment</td><td style="color:var(--accent); text-align:right">$1 – $4</td></tr>
+      </table>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">RPM = Revenue Per Mille (per 1,000 views). This is what you receive <em>after</em> YouTube takes its 45% cut.</p>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <strong>⚠ Estimates only.</strong> Actual YouTube earnings vary based on seasonality (Q4 pays 2–3× more), video length, viewer engagement, ad formats, and channel history. These figures are based on industry-reported RPM averages for 2024/2025 and are not guaranteed. Use as directional guidance only.
+    </div>
+
+  </div>
+  <!-- /results -->
+
+</main>
+
+<footer>
+  <p>© 2026 EarnerTools · <a href="privacy-policy.html">Privacy Policy</a> · <a href="about.html">About</a></p>
+</footer>
+<script src="js/theme.js"></script>
+<script src="js/youtube.js"></script>
+</body>
+</html>

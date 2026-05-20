@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelance Take-Home Calculator Kenya — KRA Tax + Upwork/Fiverr Fees | Earner Tools</title>
+  <meta name="description" content="Calculate your actual take-home pay as a Kenyan freelancer. Factors in Upwork, Fiverr, or Toptal platform fees plus KRA income tax brackets. Free, accurate, updated 2024/2025." />
+  <link rel="stylesheet" href="css/style.css" />
+  
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <a href="index.html" class="nav-logo">Earner<span>Tools</span></a>
+  <ul class="nav-links">
+    <li><a href="freelance-calc.html" class="active">Freelance Calc</a></li>
+    <li><a href="youtube-calc.html">YouTube/AdSense</a></li>
+    <li><a href="rate-calc.html">Rate Calc</a></li>
+    <li><a href="brand-deal-calc.html">Brand Deals</a></li>
+    <li><a href="crypto-calc.html">Crypto → KES</a></li>
+    <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon">☀️</span>
+      <span class="label">Light</span>
+    </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-tag">🇰🇪 Kenya — KRA 2024/2025</div>
+  <h1>Freelance <br> <em>Take-Home</em><br>Calculator</h1>
+  <p>See exactly what lands in your pocket after platform fees and KRA taxes — in both USD and KES.</p>
+</section>
+
+<!-- ── MAIN ── -->
+<main class="main-container">
+
+  <!-- INPUTS CARD -->
+  <div class="card">
+    <div class="card-title">Your Earnings</div>
+
+    <div class="form-grid">
+
+      <!-- Gross Earnings -->
+      <div class="form-group">
+        <label for="gross-usd">Gross Earnings (USD $)</label>
+        <input type="number" id="gross-usd" placeholder="e.g. 800" min="0" step="0.01" />
+      </div>
+
+      <!-- Period -->
+      <div class="form-group">
+        <label for="period">Earnings Period</label>
+        <div class="select-wrapper">
+          <select id="period">
+            <option value="monthly" selected>Monthly</option>
+            <option value="weekly">Weekly</option>
+            <option value="annual">Annual</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- USD/KES Rate -->
+      <div class="form-group">
+        <label for="usd-rate">USD → KES Exchange Rate</label>
+        <input type="number" id="usd-rate" placeholder="129.5 (default)" min="1" step="0.1" />
+      </div>
+
+      <!-- Platform -->
+      <div class="form-group">
+        <label>Platform</label>
+        <div class="tab-group">
+          <button class="tab-btn active" data-tab="upwork"  onclick="setTab('upwork')">Upwork</button>
+          <button class="tab-btn"        data-tab="fiverr"  onclick="setTab('fiverr')">Fiverr</button>
+          <button class="tab-btn"        data-tab="toptal"  onclick="setTab('toptal')">Toptal</button>
+          <button class="tab-btn"        data-tab="direct"  onclick="setTab('direct')">Direct</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Error -->
+    <p id="error-msg" style="display:none; color:var(--danger); font-size:0.88rem; margin-top:1rem;"></p>
+
+    <button class="btn-calculate" onclick="calculate()">
+      Calculate Take-Home Pay →
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- Stat Cards -->
+    <div class="card">
+      <div class="updated-badge">✓ KRA rates verified — May 2025</div>
+      <div class="card-title">Your Results</div>
+
+      <div class="results-grid">
+
+        <div class="result-item highlight">
+          <div class="result-label">Take-Home Pay</div>
+          <div class="result-value" id="stat-takehome-kes">—</div>
+          <div class="result-sub" id="stat-takehome-usd">—</div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">Platform Fee</div>
+          <div class="result-value" id="stat-platform-fee">—</div>
+          <div class="result-sub" id="stat-platform-sub">—</div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">KRA Tax</div>
+          <div class="result-value" id="stat-kra-tax">—</div>
+          <div class="result-sub">Monthly deduction</div>
+        </div>
+
+      </div>
+
+      <!-- Effective rate bar -->
+      <div style="margin-top: 0.5rem;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-muted); margin-bottom:6px;">
+          <span>Total deductions rate</span>
+          <span id="stat-effective">—</span>
+        </div>
+        <div class="tax-band-bar">
+          <div class="tax-band-fill" id="tax-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breakdown Card -->
+    <div class="card">
+      <div class="card-title">Full Breakdown</div>
+
+      <table class="breakdown-table">
+        <tr>
+          <td>Gross Earnings (monthly)</td>
+          <td id="bd-gross">—</td>
+        </tr>
+        <tr class="deduction">
+          <td id="bd-platform-label">Platform Fee</td>
+          <td id="bd-platform">—</td>
+        </tr>
+        <tr>
+          <td>After Platform Fee</td>
+          <td id="bd-after-platform">—</td>
+        </tr>
+        <tr class="deduction">
+          <td>KRA Income Tax (gross)</td>
+          <td id="bd-kra">—</td>
+        </tr>
+        <tr class="credit">
+          <td>Personal Relief</td>
+          <td id="bd-personal-relief">—</td>
+        </tr>
+        <tr class="total-row">
+          <td>Monthly Take-Home</td>
+          <td id="bd-takehome">—</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- KRA Bands Reference -->
+    <div class="card">
+      <div class="card-title">KRA Tax Bands 2024/2025</div>
+      <table class="breakdown-table">
+        <tr>
+          <td style="color:var(--text-secondary)">KES 0 – 24,000/month</td>
+          <td style="color:var(--accent)">10%</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary)">KES 24,001 – 32,333/month</td>
+          <td style="color:var(--accent)">25%</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary)">KES 32,334 – 500,000/month</td>
+          <td style="color:var(--accent)">30%</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary)">KES 500,001 – 800,000/month</td>
+          <td style="color:var(--accent)">32.5%</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary)">Above KES 800,000/month</td>
+          <td style="color:var(--accent)">35%</td>
+        </tr>
+        <tr class="credit">
+          <td>Personal Relief (applied monthly)</td>
+          <td>−KES 2,400</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <strong>⚠ For guidance only.</strong> Tax rates are sourced from <a href="https://kra.go.ke" target="_blank" style="color:var(--warning)">kra.go.ke</a> and reflect the Finance Act 2024/2025. Individual tax situations may vary based on registered status, deductions, and filing type. Always consult a licensed Kenyan tax professional or visit kra.go.ke for official filing. Exchange rate is approximate — use your bank's rate for exact figures.
+    </div>
+
+  </div>
+  <!-- /results -->
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 EarnerTools · <a href="privacy-policy.html">Privacy Policy</a> · <a href="about.html">About</a></p>
+  <p style="margin-top:6px;">KRA data sourced from <a href="https://kra.go.ke" target="_blank">kra.go.ke</a> — last verified May 2025</p>
+</footer>
+<script src="js/theme.js"></script>
+<script src="js/freelance.js"></script>
+</body>
+</html>

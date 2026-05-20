@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USDT to KES Converter — M-Pesa Withdrawal Fees Included | Earner Tools</title>
+  <meta name="description" content="Convert USDT to Kenyan Shillings (KES) with real M-Pesa withdrawal fees factored in. Compare Binance P2P, Yellow Card, Paxful and more. Free tool." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .rate-status-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rate-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    #platform-note {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    .result-hero {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+
+    .result-hero-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .result-hero-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .result-hero-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mini-stat {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem;
+      text-align: center;
+    }
+
+    .mini-stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .mini-stat-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .compare-table th {
+      text-align: left;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-table td {
+      padding: 11px 0;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    @media (max-width: 640px) {
+      .mini-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+  
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Earner<span>Tools</span></a>
+  <ul class="nav-links">
+    <li><a href="freelance-calc.html">Freelance Calc</a></li>
+    <li><a href="youtube-calc.html">YouTube/AdSense</a></li>
+    <li><a href="rate-calc.html">Rate Calc</a></li>
+    <li><a href="brand-deal-calc.html">Brand Deals</a></li>
+    <li><a href="crypto-calc.html" class="active">Crypto → KES</a></li>
+    <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon">☀️</span>
+      <span class="label">Light</span>
+    </button>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-tag">₿ USDT → KES · M-Pesa Fees Included</div>
+  <h1>How much KES will<br>you <em>actually receive?</em></h1>
+  <p>Convert USDT to KES with real platform fees and M-Pesa withdrawal costs factored in — not just the spot rate.</p>
+</section>
+
+<main class="main-container">
+
+  <!-- INPUTS -->
+  <div class="card">
+    <div class="card-title">Conversion Details</div>
+
+    <!-- Live rate status -->
+    <div class="rate-status-box">
+      <div class="rate-dot"></div>
+      <span id="rate-status">Connecting to live rates...</span>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label for="usdt-amount">Amount (USDT)</label>
+        <input type="number" id="usdt-amount" placeholder="e.g. 500" min="0" step="0.01" />
+      </div>
+
+      <div class="form-group">
+        <label for="manual-rate">Override Rate (KES per USDT)</label>
+        <input type="number" id="manual-rate" placeholder="Leave blank for live rate" min="1" step="0.1" />
+      </div>
+
+      <div class="form-group full">
+        <label for="platform">Withdrawal Platform</label>
+        <div class="select-wrapper">
+          <select id="platform">
+            <option value="" disabled selected>— Select platform —</option>
+          </select>
+        </div>
+        <span id="platform-note"></span>
+      </div>
+
+    </div>
+
+    <p id="error-msg" style="display:none; color:var(--danger); font-size:0.88rem; margin-top:1rem;"></p>
+
+    <button class="btn-calculate" onclick="calculate()">
+      Convert to KES →
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <div class="card">
+      <div class="updated-badge">✓ Platform fees verified — 2025</div>
+
+      <!-- Hero result -->
+      <div class="result-hero">
+        <div class="result-hero-label">You Will Receive</div>
+        <div class="result-hero-amount" id="stat-net-kes">—</div>
+        <div class="result-hero-sub">After all fees and spreads</div>
+      </div>
+
+      <!-- Mini stats -->
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-stat-label">Spot Rate</div>
+          <div class="mini-stat-val" id="stat-spot">—</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-label">Effective Rate</div>
+          <div class="mini-stat-val" id="stat-effective">—</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-label">Total Fees</div>
+          <div class="mini-stat-val" id="stat-fees-usd">—</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-label">Fee % of Total</div>
+          <div class="mini-stat-val" id="stat-fees-pct">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breakdown -->
+    <div class="card">
+      <div class="card-title">Step-by-Step Breakdown</div>
+      <table class="breakdown-table">
+        <tr>
+          <td>You send</td>
+          <td id="bd-input" style="text-align:right; font-weight:500">—</td>
+        </tr>
+        <tr class="deduction">
+          <td>Exchange fee</td>
+          <td id="bd-exchange-fee" style="text-align:right">—</td>
+        </tr>
+        <tr class="deduction">
+          <td>Withdrawal fee</td>
+          <td id="bd-withdrawal" style="text-align:right">—</td>
+        </tr>
+        <tr>
+          <td>USDT being converted</td>
+          <td id="bd-after" style="text-align:right; font-weight:500">—</td>
+        </tr>
+        <tr>
+          <td>P2P / Platform spread</td>
+          <td id="bd-spread" style="text-align:right; color:var(--warning)">—</td>
+        </tr>
+        <tr>
+          <td>Effective conversion rate</td>
+          <td id="bd-rate" style="text-align:right">—</td>
+        </tr>
+        <tr>
+          <td>Gross KES</td>
+          <td id="bd-gross-kes" style="text-align:right">—</td>
+        </tr>
+        <tr class="total-row">
+          <td>Net KES (take-home)</td>
+          <td id="bd-net-kes" style="text-align:right">—</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Platform comparison -->
+    <div class="card">
+      <div class="card-title">Platform Comparison — Same Amount</div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th style="text-align:right">You Receive (KES)</th>
+          </tr>
+        </thead>
+        <tbody id="compare-body"></tbody>
+      </table>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">Based on typical P2P spreads. Actual rates vary by market conditions and available offers at time of trade.</p>
+    </div>
+
+    <div class="disclaimer">
+      <strong>⚠ Rates are indicative only.</strong> Live USDT/KES rate sourced from CoinGecko. P2P spreads are typical averages — actual rates on Binance P2P, Paxful, or Yellow Card vary by offer and time of day. Always confirm the final rate on the platform before completing a transfer. Not financial advice.
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 EarnerTools · <a href="privacy-policy.html">Privacy Policy</a> · <a href="about.html">About</a></p>
+</footer>
+<script src="js/theme.js"></script>
+<script src="js/crypto.js"></script>
+</body>
+</html>
