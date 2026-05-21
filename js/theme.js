@@ -1,30 +1,30 @@
-// ── MODERN EARNER — Theme Toggle ──
+// ── EARNER TOOLS — Theme Toggle ──
+// Default: light. User preference saved in localStorage.
 
-var STORAGE_KEY = 'me-theme';
+var STORAGE_KEY = 'et-theme';
 
 function getSavedTheme() {
-  try { return localStorage.getItem(STORAGE_KEY) || 'dark'; }
-  catch(e) { return 'dark'; }
+  try { return localStorage.getItem(STORAGE_KEY) || 'light'; }
+  catch(e) { return 'light'; }
 }
 
 function applyTheme(theme) {
-  if (theme === 'light') {
-    document.body.classList.add('light');
+  if (theme === 'dark') {
+    document.body.classList.add('dark');
   } else {
-    document.body.classList.remove('light');
+    document.body.classList.remove('dark');
   }
-
   document.querySelectorAll('.theme-toggle').forEach(function(btn) {
     var icon  = btn.querySelector('.icon');
     var label = btn.querySelector('.label');
-    if (icon)  icon.textContent  = theme === 'light' ? '🌙' : '☀️';
-    if (label) label.textContent = theme === 'light' ? 'Dark' : 'Light';
+    if (icon)  icon.textContent  = theme === 'dark' ? '☀️' : '🌙';
+    if (label) label.textContent = theme === 'dark' ? 'Light' : 'Dark';
   });
 }
 
 function toggleTheme() {
   var current = getSavedTheme();
-  var next    = current === 'dark' ? 'light' : 'dark';
+  var next    = current === 'light' ? 'dark' : 'light';
   try { localStorage.setItem(STORAGE_KEY, next); } catch(e) {}
   applyTheme(next);
 }
