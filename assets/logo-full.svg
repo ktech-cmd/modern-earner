@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="EarnerTools logo">
+  <g transform="translate(20,20)">
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#4f6ef7" stroke-width="8"/>
+    <path d="M 20 47 L 34 32 L 46 43 L 64 20" fill="none" stroke="#4f6ef7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 51 20 L 64 20 L 64 33" fill="none" stroke="#4f6ef7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="118" y="72" font-family="'Space Grotesk', Arial, sans-serif" font-weight="700" font-size="42" letter-spacing="-1" fill="#0f1117">Earner<tspan fill="#4f6ef7">Tools</tspan></text>
+</svg>

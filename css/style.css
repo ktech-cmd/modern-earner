@@ -89,6 +89,9 @@ nav {
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 1rem;
@@ -100,6 +103,7 @@ nav {
 }
 
 .nav-logo span { color: var(--accent); }
+.nav-logo-icon { color: var(--accent); flex-shrink: 0; }
 
 .nav-links {
   display: flex;
