@@ -30,7 +30,7 @@
 }
 
 /* ── TOKENS — DARK ── */
-body.dark {
+html.dark {
   --bg:             #0d0f14;
   --bg-card:        #151820;
   --bg-input:       #1c1f28;
