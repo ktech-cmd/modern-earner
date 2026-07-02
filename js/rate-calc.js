@@ -9,7 +9,9 @@ const PLATFORMS = {
   direct:  { label: 'Direct',  fee: 0.00 },
 };
 
-// KRA tax bands (monthly KES) — Finance Act 2024/2025
+// KRA tax bands (monthly KES) — Finance Act 2023, still in force; verified against Finance Act 2026, July 2026
+// TODO: Finance Act 2026 restructures these bands (10% to KES 360k/yr, 17.5% next 100k,
+// 25% to ~6.07M, 27.5% above), effective 1 Jan 2027. Update KRA_BANDS then.
 const KRA_BANDS = [
   { limit: 24000,    rate: 0.10 },
   { limit: 32333,    rate: 0.25 },

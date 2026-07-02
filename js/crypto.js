@@ -2,6 +2,11 @@
 // Live rates fetched from CoinGecko public API (no key required)
 // M-Pesa and exchange platform fee data — updated 2024/2025
 
+// Excise duty on Virtual Asset Service Provider (VASP) fees — Finance Act 2025, effective 1 July 2025.
+// Applies to the service fees charged by exchanges/brokers (Binance, Yellow Card, Paxful, BitPesa, etc.),
+// not to the P2P/market spread, which isn't a charged fee. Still in force under Finance Act 2026.
+const EXCISE_DUTY_ON_VASP_FEES = 0.10;
+
 // Withdrawal/exchange platform fees
 const PLATFORMS = {
   mpesa_binance: {
@@ -129,18 +134,22 @@ function calculate() {
   const grossKES = afterWithdrawal * effectiveRate;
 
   // Step 4: Deduct KES transfer fee (if any)
-  const netKES = grossKES - platform.kesTransferFee;
+  const afterTransferFee = grossKES - platform.kesTransferFee;
+
+  // Step 5: Deduct excise duty on VASP fees (exchange fee + withdrawal fee + KES transfer fee)
+  const exciseDutyKES = ((exchangeFeeUSDT + platform.withdrawalFeeUSDT) * spotRate + platform.kesTransferFee) * EXCISE_DUTY_ON_VASP_FEES;
+  const netKES = afterTransferFee - exciseDutyKES;
 
   // Summary stats
   const totalFeesUSDT = exchangeFeeUSDT + platform.withdrawalFeeUSDT;
-  const totalFeesKES  = totalFeesUSDT * spotRate + platform.kesTransferFee + (amountInput * platform.p2pSpread * spotRate);
+  const totalFeesKES  = totalFeesUSDT * spotRate + platform.kesTransferFee + (amountInput * platform.p2pSpread * spotRate) + exciseDutyKES;
   const effectivePct  = (totalFeesKES / (amountInput * spotRate) * 100);
 
   renderResults({
     amountInput, platform, platformKey,
     spotRate, effectiveRate,
     exchangeFeeUSDT, afterExchangeFee,
-    afterWithdrawal, grossKES, netKES,
+    afterWithdrawal, grossKES, exciseDutyKES, netKES,
     totalFeesUSDT, totalFeesKES, effectivePct,
   });
 }
@@ -164,6 +173,7 @@ function renderResults(d) {
   document.getElementById('bd-spread').textContent       = `${(d.platform.p2pSpread * 100).toFixed(1)}% below spot`;
   document.getElementById('bd-rate').textContent         = `KES ${d.effectiveRate.toFixed(2)} per USDT`;
   document.getElementById('bd-gross-kes').textContent    = fmtKES(d.grossKES);
+  document.getElementById('bd-excise').textContent       = `−${fmtKES(d.exciseDutyKES)} (10% excise duty on VASP fees)`;
   document.getElementById('bd-net-kes').textContent      = fmtKES(d.netKES);
 
   // Comparison table — show all platforms for this amount
@@ -173,9 +183,11 @@ function renderResults(d) {
   const amt      = d.amountInput;
 
   Object.entries(PLATFORMS).forEach(([key, p]) => {
-    const effRate = spotRate * (1 - p.p2pSpread);
-    const after   = amt - (amt * p.exchangeFee) - p.withdrawalFeeUSDT;
-    const kes     = Math.max(0, after) * effRate;
+    const effRate    = spotRate * (1 - p.p2pSpread);
+    const exchangeFeeUSDT = amt * p.exchangeFee;
+    const after       = amt - exchangeFeeUSDT - p.withdrawalFeeUSDT;
+    const excise      = ((exchangeFeeUSDT + p.withdrawalFeeUSDT) * spotRate + p.kesTransferFee) * EXCISE_DUTY_ON_VASP_FEES;
+    const kes         = Math.max(0, after) * effRate - p.kesTransferFee - excise;
     const isActive = key === d.platformKey;
 
     const tr = document.createElement('tr');
