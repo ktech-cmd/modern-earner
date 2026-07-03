@@ -102,7 +102,7 @@ nav {
   flex-shrink: 0;
 }
 
-.nav-logo span { color: var(--accent); }
+.nav-logo-text span { color: var(--accent); }
 .nav-logo-icon { color: var(--accent); flex-shrink: 0; }
 
 .nav-links {
