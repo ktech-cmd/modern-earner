@@ -1,6 +1,6 @@
 // ── MODERN EARNER — USDT → KES Converter ──
 // Live rates fetched from CoinGecko public API (no key required)
-// M-Pesa and exchange platform fee data — updated 2024/2025
+// M-Pesa and exchange platform fee data — updated 2025/2026
 
 // Excise duty on Virtual Asset Service Provider (VASP) fees — Finance Act 2025, effective 1 July 2025.
 // Applies to the service fees charged by exchanges/brokers (Binance, Yellow Card, Paxful, BitPesa, etc.),

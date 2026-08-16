@@ -1,6 +1,6 @@
 // ── MODERN EARNER — Brand Deal Rate Calculator ──
 // "What should I charge for a sponsored post?"
-// Based on industry CPE (Cost Per Engagement) benchmarks 2024/2025
+// Based on industry CPE (Cost Per Engagement) benchmarks 2025/2026
 
 // Platform base rates per 1000 followers (USD) — industry benchmarks
 const PLATFORMS = {
