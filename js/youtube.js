@@ -1,24 +1,24 @@
 // ── MODERN EARNER — YouTube / AdSense Revenue Estimator ──
-// CPM/RPM data based on industry averages (2024/2025)
+// CPM/RPM data based on industry averages (2025/2026)
 // RPM = Revenue Per Mille (per 1000 views after YouTube's 45% cut)
 
 // Niche RPM ranges [min, max] in USD
 const NICHE_RPM = {
-  finance:       { label: 'Finance & Investing',      rpm: [8,  22], emoji: '💰' },
-  business:      { label: 'Business & Entrepreneurship', rpm: [6, 16], emoji: '📊' },
-  tech:          { label: 'Tech & Software',           rpm: [4,  12], emoji: '💻' },
-  education:     { label: 'Education & How-To',        rpm: [3,   9], emoji: '📚' },
-  health:        { label: 'Health & Fitness',          rpm: [3,   8], emoji: '🏃' },
-  lifestyle:     { label: 'Lifestyle & Vlogs',         rpm: [1.5, 5], emoji: '✨' },
-  gaming:        { label: 'Gaming',                    rpm: [1,   4], emoji: '🎮' },
-  food:          { label: 'Food & Cooking',            rpm: [2,   6], emoji: '🍳' },
-  travel:        { label: 'Travel',                    rpm: [2,   7], emoji: '✈️' },
-  entertainment: { label: 'Entertainment & Comedy',    rpm: [1,   4], emoji: '🎭' },
-  news:          { label: 'News & Politics',           rpm: [2,   6], emoji: '📰' },
-  kids:          { label: "Kids & Family",             rpm: [3,   8], emoji: '👨‍👩‍👧' },
-  beauty:        { label: 'Beauty & Fashion',          rpm: [2,   7], emoji: '💄' },
-  crypto:        { label: 'Crypto & Web3',             rpm: [5,  15], emoji: '₿'  },
-  saas:          { label: 'SaaS & Marketing',          rpm: [7,  20], emoji: '🚀' },
+  finance:       { label: 'Finance & Investing',         rpm: [9,   25],  emoji: '💰' },
+  saas:          { label: 'SaaS & B2B Marketing',        rpm: [8,   22],  emoji: '🚀' },
+  business:      { label: 'Business & Entrepreneurship', rpm: [6.5, 18],  emoji: '📊' },
+  crypto:        { label: 'Crypto & Web3',               rpm: [5,   16],  emoji: '₿'  },
+  tech:          { label: 'Tech, AI & Software',         rpm: [5,   14],  emoji: '💻' },
+  education:     { label: 'Education & How-To',          rpm: [3.5, 10],  emoji: '📚' },
+  health:        { label: 'Health & Fitness',            rpm: [3,    9],  emoji: '🏃' },
+  travel:        { label: 'Travel',                      rpm: [2.5,  8],  emoji: '✈️' },
+  beauty:        { label: 'Beauty & Fashion',            rpm: [2.5, 7.5], emoji: '💄' },
+  food:          { label: 'Food & Cooking',              rpm: [2,    7],  emoji: '🍳' },
+  lifestyle:     { label: 'Lifestyle & Vlogs',           rpm: [1.5, 5.5], emoji: '✨' },
+  news:          { label: 'News & Politics',             rpm: [2,    6],  emoji: '📰' },
+  kids:          { label: "Kids & Family",               rpm: [1.5,  5],  emoji: '👨‍👩‍👧' },
+  gaming:        { label: 'Gaming',                      rpm: [1,  4.5],  emoji: '🎮' },
+  entertainment: { label: 'Entertainment & Comedy',      rpm: [1,  4.5],  emoji: '🎭' },
 };
 
 // Audience location multipliers (relative to US = 1.0)
