@@ -1,15 +1,12 @@
 // ── MODERN EARNER — Freelance Take-Home Calculator ──
-// KRA Tax Brackets (Finance Act 2023, still in force) — verified against Finance Act 2026, July 2026
+// KRA Tax Brackets — Finance Act 2026
 // Source: kra.go.ke
-// TODO: Finance Act 2026 restructures these bands (10% to KES 360k/yr, 17.5% next 100k,
-// 25% to ~6.07M, 27.5% above), effective 1 Jan 2027. Update KRA_BANDS then.
 
 const KRA_BANDS = [
-  { limit: 24000,   rate: 0.10 },
-  { limit: 32333,   rate: 0.25 },
-  { limit: 500000,  rate: 0.30 },
-  { limit: 800000,  rate: 0.325 },
-  { limit: Infinity, rate: 0.35 },
+  { limit: 30000,    rate: 0.10 },
+  { limit: 38333,    rate: 0.175 },
+  { limit: 505833,   rate: 0.25 },
+  { limit: Infinity, rate: 0.275 },
 ];
 
 const PERSONAL_RELIEF_MONTHLY = 2400; // KES per month
